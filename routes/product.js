@@ -99,23 +99,5 @@ router.get('/', async (req, res) => {
   }
 });
 
-// router.get('/search', async (req, res) => {
-//   // var query = {title: req.params.word i};
-//   try {
-//     const searchWord = req.body.words;
-//     // var query = { title: { $regex: new RegExp(searchWord, "i") } };
-
-//     const products = await Product.find({
-//       title: { $regex: new RegExp('.*' + searchWord + '.*', 'i') },
-//     });
-
-//     // console.log(products);
-
-//     res.status(200).json(products);
-//     // console.log(products.toArray());
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 
 module.exports = router;

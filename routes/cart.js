@@ -74,13 +74,17 @@ router.put(
 );
 
 // DELETE PRODUCT
-router.delete(
+router.patch(
   '/delete_product/:deleteProductId/:id',
   verifyTokenAndAuthorization,
   async (req, res) => {
     try {
       const cart = await Cart.findOne({ userId: req.params.id });
-      const cartId = cart._id.toString();
+      let total = cart.total;
+      // console.log(`${req.body}`);
+      total -= req.body.quantity * req.body.price;
+      console.log(req.body);
+      // const cartId = cart._id.toString();
       console.log('old products ------------------------');
       console.log(cart.products);
       const newProducts = cart.products.filter(
@@ -88,11 +92,6 @@ router.delete(
       );
       console.log('new products ------------------------');
       console.log(newProducts);
-
-      // const result = await collection.updateMany(
-      //   { userId: userIdValue },
-      //   { $set: { products: newProducts } }
-      // );
 
       const result = await Cart.updateMany(
         { userId: req.params.id },
@@ -102,14 +101,11 @@ router.delete(
           },
         }
       );
-      console.log(`${result.modifiedCount} документов обновлено`);
 
-      // Cart.findByIdAndUpdate(cartId, {
-      //   $set: {
-      //     products: newProducts,
-      //   },
-      // });
-      // res.status(200).json('');
+      const result2 = await Cart.updateMany(
+        { userId: req.params.id },
+        { $set: { total: total } }
+      );
     } catch (err) {
       res.status(500).json(err);
     }

@@ -69,26 +69,4 @@ router.get('/', verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-// router.put(
-//   '/changeRights/:id',
-//   verifyTokenAndAdmin,
-//   async (req, res) => {
-//     try {
-
-//       const result = await Cart.updateMany(
-//         { userId: req.params.id },
-//         {
-//           $set: {
-//             products: newProducts,
-//           },
-//         }
-//       );
-//       console.log(`${result.modifiedCount} документов обновлено`);
-
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   }
-// );
-
 module.exports = router;
